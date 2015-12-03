@@ -1,30 +1,23 @@
 <md-content>
   <header>
-    <navbar></navbar>
+
   </header>
 
   <section class="jumbotron">
-    <h1>'Allo, 'Allo!</h1>
-
-    <p class="lead">
-      <img src="assets/images/yeoman.png" alt="I'm Yeoman"><br>
-      Always a pleasure scaffolding your apps.
-    </p>
-    <md-button class="md-raised animated infinite" ng-class="main.classAnimation" ng-click="main.showToastr()">Splendid
-      Toastr
-    </md-button>
+      <div>Kies uw code!</div>
   </section>
 
   <div class="techs" layout-align="center">
+
     <md-card ng-repeat="(key, style) in main.routeStyles">
       <md-card-content>
-        {{ style.name }}
-        <!--<img class="pull-right" ng-src="assets/images/{{ awesomeThing.logo }}" alt="{{ awesomeThing.title }}">-->
-        <!--<h3 class="md-title">{{ awesomeThing.title }}</h3>-->
-        <!--<p>{{ awesomeThing.description }}</p>-->
+
       </md-card-content>
       <div class="md-action-buttons">
-        <md-button ng-href="/#/route/{{ key }}">Kies</md-button>
+        <md-button  ng-href="/#/route/{{ key }}">
+            <img id='codeButton' ng-src="{{ style.image }}" width="50px" height="50px" />
+            <div id="codeName">{{ style.name }}</div>
+        </md-button>
       </div>
     </md-card>
   </div>
