@@ -12,8 +12,12 @@
 <md-button ng-click="route.getPlace()">Get</md-button>
 
 <ol>
-  <li ng-repeat="(key, instruction) in route.instructions track by $index">{{ instruction.maneuver.instruction }}</li>
+  <li ng-repeat="(key, instruction) in route.instructions track by $index">
+    Na {{ instruction.distance }}m: {{ instruction.maneuver.instruction }}
+  </li>
 </ol>
+
+
 
 <map/>
 
@@ -31,3 +35,5 @@
     </div>
   </md-card>
 </div>
+
+<md-button ng-csv="route.exportToCSV()" filename="export.csv">Export naar CSV</md-button>

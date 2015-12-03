@@ -12,7 +12,7 @@ import { PlaceRestangular } from './factory/PlaceRestangular';
 import { PlaceService } from './services/PlaceService';
 import { RouteService } from './services/RouteService';
 
-angular.module('frontend', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'restangular', 'ui.router', 'ngMaterial', 'toastr'])
+angular.module('frontend', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'restangular', 'ui.router', 'ngMaterial', 'toastr', 'ngCsv'])
   //.constant('malarkey', malarkey)
   //.constant('moment', moment)
   .config(config)
