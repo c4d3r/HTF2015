@@ -9,4 +9,9 @@ export class RoutePijltjeController {
     this.instructions = SaveData.get();
   }
 
+
+  exportToCSV() {
+    console.log(this.instructions);
+    return this.instructions;
+  }
 }
