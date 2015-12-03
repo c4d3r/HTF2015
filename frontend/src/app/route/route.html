@@ -16,3 +16,18 @@
 </ol>
 
 <map/>
+
+<div class="techs" layout-align="center">
+
+  <md-card ng-repeat="(key, style) in route.routeStyles">
+    <md-card-content>
+
+    </md-card-content>
+    <div class="md-action-buttons">
+      <md-button  ng-href="/#/route/{{ key }}">
+        <img id='codeButton' ng-src="{{ style.image }}" width="50px" height="50px" />
+        <div id="codeName">{{ style.name }}</div>
+      </md-button>
+    </div>
+  </md-card>
+</div>

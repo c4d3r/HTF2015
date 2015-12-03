@@ -2,13 +2,13 @@ export function routerConfig ($stateProvider, $urlRouterProvider) {
   'ngInject';
   $stateProvider
     .state('home', {
-      url: '/',
+      url: '/route/:routeId',
       templateUrl: 'app/main/main.html',
       controller: 'MainController',
       controllerAs: 'main'
     })
     .state('route', {
-      url: '/route/:routeId',
+      url: '/',
       templateUrl: 'app/route/route.html',
       controller: 'RouteController',
       controllerAs: 'route'
