@@ -2,7 +2,6 @@
  * Created by Maxim on 03/12/2015.
  */
 export function MapDirective() {
-  'ngInject';
 
   let directive = {
     restrict: 'E',
@@ -21,10 +20,10 @@ export function MapDirective() {
   return directive;
 }
 
-class MapController {
-  constructor($attrs) {
-    'ngInject';
+export class MapController {
 
+  constructor() {
+    'ngInject';
 
     L.mapbox.accessToken = 'pk.eyJ1IjoiaHRmIiwiYSI6ImNpaHB5aWUzbjA0YXV0Nm00OWc1dmVhaW8ifQ.9FwnpyOmSoaN1rjfZyG0Yw';
 
@@ -58,8 +57,8 @@ class MapController {
         "coordinates": [start.lat, start.lng]
       },
       "properties": {
-        "title": '<%= link_to @direction.business.name, business_url(@direction.business) %>',
-        "description": '<%= @direction.business.full_street_address %>',
+        "title": 'Start point',
+        "description": 'Street',
         "marker-color": "#3ca0d3",
         "marker-size": "large",
         "marker-symbol": "star"
@@ -87,5 +86,19 @@ class MapController {
       .query();
 
   }
+
+  startLatChanged(newValue, oldValue) {
+    this.start.lat = newValue;
+  }
+  startLngChanged(newValue, oldValue) {
+    this.start.lng = newValue;
+  }
+  finishLatChanged(newValue, oldValue) {
+    this.finish.lat = newValue;
+  }
+  finishLngChanged(newValue, oldValue) {
+    this.finish.lng = newValue;
+  }
 }
 
+MapController.$inject = ['$scope'];

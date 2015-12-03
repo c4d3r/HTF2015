@@ -30,5 +30,8 @@ angular.module('frontend', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
   .controller('RouteController', RouteController)
   .controller('RoutePijltjeController', RoutePijltjeController)
   .directive('navbar', NavbarDirective)
-  .directive('map', MapDirective);
+  .directive('map', MapDirective)
+  //.directive('map', ['$scope', ($scope) => new MapDirective($scope)])
+
+  //.directive('map', ['$scope', ($scope) => new MapDirective($scope)]);
 

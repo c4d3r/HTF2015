@@ -1,7 +1,9 @@
 <navbar/>
 
 <div layout="row">
-  <md-button flex="initial" class="md-fab md-mini" aria-label="FAB" ng-click="route.getLocation()">Gebruik locatie</md-button>
+  <md-button flex="initial" class="md-fab md-mini" aria-label="FAB" ng-click="route.getLocation()">
+    <md-icon md-font-set="material-icons">explore</md-icon>
+  </md-button>
   <md-input-container flex>
     <label>Van: </label>
     <input type="text" ng-model="route.from" required md-minlength="3"/>
@@ -13,7 +15,7 @@
   <md-button flex="10" ng-click="route.getPlace()">Get</md-button>
 </div>
 
-<div layout="row">
+<div layout="row" layout-padding>
   <div flex="45">
     <map
       start-lat="route.start.lat"
@@ -21,6 +23,7 @@
       finish-lat="route.finish.lat"
       finish-lng="route.finish.lng"
       ng-show="route.instructions.length > 0"/>
+
   </div>
   <div flex>
     <ol class="directions" ng-show="route.instructions.length > 0" flex>
@@ -31,10 +34,6 @@
   </div>
 
 </div>
-
-
-
-
 
 <div class="techs" layout-align="center" ng-show="route.instructions.length > 0">
 
