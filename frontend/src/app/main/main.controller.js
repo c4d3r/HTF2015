@@ -1,5 +1,5 @@
 export class MainController {
-  constructor ($timeout, toastr) {
+  constructor ($timeout, $log, Restangular) {
     'ngInject';
 
     this.routeStyles = [
@@ -7,6 +7,7 @@ export class MainController {
       {name: "Bolletje-Pijltje"},
       {name: "Bolletje-pijltje met windrichting"}
     ];
-    toastr.success('Kies je kaart!', 'welkom traveller!');
+
+    //toastr.success('Kies je kaart!', 'welkom traveller!');
   }
 }

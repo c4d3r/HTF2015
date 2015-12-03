@@ -1,32 +1,32 @@
-<div layout="vertical" layout-fill>
+<md-content>
+  <header>
+    <navbar></navbar>
+  </header>
 
-  <md-content>
-    <header>
-      <navbar></navbar>
-    </header>
+  <section class="jumbotron">
+    <h1>'Allo, 'Allo!</h1>
 
-    <section class="jumbotron">
-      <h1>'Allo, 'Allo!</h1>
-      <p class="lead">
-        <img src="assets/images/yeoman.png" alt="I'm Yeoman"><br>
-        Always a pleasure scaffolding your apps.
-      </p>
-      <md-button class="md-raised animated infinite" ng-class="main.classAnimation" ng-click="main.showToastr()">Splendid Toastr</md-button>
-    </section>
+    <p class="lead">
+      <img src="assets/images/yeoman.png" alt="I'm Yeoman"><br>
+      Always a pleasure scaffolding your apps.
+    </p>
+    <md-button class="md-raised animated infinite" ng-class="main.classAnimation" ng-click="main.showToastr()">Splendid
+      Toastr
+    </md-button>
+  </section>
 
-    <div class="techs" layout-align="center">
-      <md-card ng-repeat="style in main.routeStyles">
-        <md-card-content>
-          {{ style.name }}
-          <!--<img class="pull-right" ng-src="assets/images/{{ awesomeThing.logo }}" alt="{{ awesomeThing.title }}">-->
-          <!--<h3 class="md-title">{{ awesomeThing.title }}</h3>-->
-          <!--<p>{{ awesomeThing.description }}</p>-->
-        </md-card-content>
-        <!--<div class="md-action-buttons">-->
-          <!--<md-button ng-href="{{ awesomeThing.url }}">Website</md-button>-->
-        <!--</div>-->
-      </md-card>
-    </div>
-  </md-content>
+  <div class="techs" layout-align="center">
+    <md-card ng-repeat="(key, style) in main.routeStyles">
+      <md-card-content>
+        {{ style.name }}
+        <!--<img class="pull-right" ng-src="assets/images/{{ awesomeThing.logo }}" alt="{{ awesomeThing.title }}">-->
+        <!--<h3 class="md-title">{{ awesomeThing.title }}</h3>-->
+        <!--<p>{{ awesomeThing.description }}</p>-->
+      </md-card-content>
+      <div class="md-action-buttons">
+        <md-button ng-href="/#/route/{{ key }}">Kies</md-button>
+      </div>
+    </md-card>
+  </div>
 
-</div>
+</md-content>
