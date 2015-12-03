@@ -9,8 +9,10 @@ import { NavbarDirective } from '../app/components/navbar/navbar.directive';
 import { MapDirective } from '../app/components/map/map.directive';
 import { RouteRestangular } from './factory/RouteRestangular';
 import { PlaceRestangular } from './factory/PlaceRestangular';
+import { SaveData } from './factory/SaveData';
 import { PlaceService } from './services/PlaceService';
 import { RouteService } from './services/RouteService';
+import { RoutePijltjeController } from './route/route_pijl.controller';
 
 angular.module('frontend', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'restangular', 'ui.router', 'ngMaterial', 'toastr', 'ngCsv'])
   //.constant('malarkey', malarkey)
@@ -21,10 +23,12 @@ angular.module('frontend', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
   //.factory('PlaceRestangular', PlaceRestangular)
   .factory('PlaceRestangular', ['Restangular', (Restangular) => new PlaceRestangular(Restangular)])
   .factory('RouteRestangular', ['Restangular', (Restangular) => new RouteRestangular(Restangular)])
+  .factory('SaveData', ['Restangular', (Restangular) => new SaveData(Restangular)])
   .service('PlaceService', PlaceService)
   .service('RouteService', RouteService)
   .controller('MainController', MainController)
   .controller('RouteController', RouteController)
+  .controller('RoutePijltjeController', RoutePijltjeController)
   .directive('navbar', NavbarDirective)
   .directive('map', MapDirective);
 

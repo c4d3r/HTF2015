@@ -13,10 +13,10 @@ export function routerConfig ($stateProvider, $urlRouterProvider) {
       controller: 'RouteController',
       controllerAs: 'route'
     })
-    .state('route/bolletje_pijltje', {
-      url: '/',
+    .state('route/1', {
+      url: '/route_bolletje',
       templateUrl: 'app/route/route_bolletje_pijltje.html',
-      controller: 'RouteBolletjePijltjeController',
+      controller: 'RoutePijltjeController',
       controllerAs: 'route'
     });
 

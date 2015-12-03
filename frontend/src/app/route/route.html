@@ -1,34 +1,49 @@
-<md-input-container>
-  <label>Van: </label>
-  <input type="text" ng-model="route.from" required md-minlength="3"/>
-</md-input-container>
+<navbar/>
 
-<md-input-container>
-  <label>Naar: </label>
-  <input type="text" ng-model="route.to" required md-minlength="3"/>
-</md-input-container>
+<div layout="row">
+  <md-button flex="initial" class="md-fab md-mini" aria-label="FAB" ng-click="route.getLocation()">Gebruik locatie</md-button>
+  <md-input-container flex>
+    <label>Van: </label>
+    <input type="text" ng-model="route.from" required md-minlength="3"/>
+  </md-input-container>
+  <md-input-container flex>
+    <label>Naar: </label>
+    <input type="text" ng-model="route.to" required md-minlength="3"/>
+  </md-input-container>
+  <md-button flex="10" ng-click="route.getPlace()">Get</md-button>
+</div>
+
+<div layout="row">
+  <div flex="45">
+    <map
+      start-lat="route.start.lat"
+      start-lng="route.start.lng"
+      finish-lat="route.finish.lat"
+      finish-lng="route.finish.lng"
+      ng-show="route.instructions.length > 0"/>
+  </div>
+  <div flex>
+    <ol class="directions" ng-show="route.instructions.length > 0" flex>
+      <li ng-repeat="(key, instruction) in route.instructions track by $index">
+        Na {{ instruction.distance }}m: {{ instruction.maneuver.instruction }}
+      </li>
+    </ol>
+  </div>
+
+</div>
 
 
-<md-button ng-click="route.getPlace()">Get</md-button>
-
-<ol>
-  <li ng-repeat="(key, instruction) in route.instructions track by $index">
-    Na {{ instruction.distance }}m: {{ instruction.maneuver.instruction }}
-  </li>
-</ol>
 
 
 
-<map/>
-
-<div class="techs" layout-align="center">
+<div class="techs" layout-align="center" ng-show="route.instructions.length > 0">
 
   <md-card ng-repeat="(key, style) in route.routeStyles">
     <md-card-content>
 
     </md-card-content>
     <div class="md-action-buttons">
-      <md-button  ng-href="/#/route/{{ key }}">
+      <md-button  ng-href="/#/route_bolletje">
         <img id='codeButton' ng-src="{{ style.image }}" width="50px" height="50px" />
         <div id="codeName">{{ style.name }}</div>
       </md-button>
@@ -36,4 +51,6 @@
   </md-card>
 </div>
 
-<md-button ng-csv="route.exportToCSV()" filename="export.csv">Export naar CSV</md-button>
+<md-button ng-csv="route.exportToCSV()" filename="export.csv" ng-show="route.instructions.length > 0">Export naar CSV</md-button>
+
+

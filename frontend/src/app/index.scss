@@ -103,6 +103,19 @@ section.jumbotron {
 }
 
 
+.arrow_code {
+  li {
+    list-style:none;
+    display:inline-block;
+  }
+}
+
+.directions {
+  max-height:500px;
+  overflow-y: auto;
+}
+
+
 /**
  *  Do not remove the comment below. It's the markers used by gulp-inject to inject
  *  all your sass files automatically

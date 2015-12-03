@@ -2,57 +2,109 @@
  * Created by Maxim on 03/12/2015.
  */
 export class RouteController {
-  constructor ($stateParams, $log, PlaceService, RouteService) {
+  constructor ($stateParams, $log, PlaceService, RouteService, SaveData) {
     'ngInject';
 
     this.placeService = PlaceService;
     this.routeService = RouteService;
+    this.saveData = SaveData;
 
     //this.from = "Torenblokstraat+15";
     //this.to = "Pater+Damiaanstraat+51";
     this.from = "Edegem";
     this.to = "Geel";
 
+    this.start = {lat: '', lng: ''};
+    this.finish = {lat: '', lng: ''};
+
     this.instructions = [];
 
     this.routeStyles = [
-      {name: "Blinde Kaart", image: "app/images/blindekaart.jpg"},
-      {name: "Bolletje-Pijltje", image: "app/images/bolletjepijltje.jpg"},
-      {name: "Bolletje-pijltje met windrichting", image: "app/images/bolletjepijltjewindrichting.jpg"}
+      {name: "Blinde Kaart", image: "assets/images/blindekaart.jpg"},
+      {name: "Bolletje-Pijltje", image: "assets/images/bolletjepijltje.jpg"},
+      {name: "Bolletje-pijltje met windrichting", image: "assets/images/bolletjepijltjewindrichting.jpg"}
     ];
   }
 
   getPlace() {
     var self = this;
-    console.log(this.from);
     //FROM
-    this.placeService.getPlace(this.from)
-      .then(function(place){
+    if(this.start.isCoordinate) {
+      self.placeService.getPlace(self.to)
+        .then(function(place){
+          // GET DIRECTIONS
+          self.routeService.getRoute()
+            .then(function(routes){
 
-        console.log(place.features);
+              //set start/finish
+              self.start.lat = routes.origin.geometry.coordinates[0];
+              self.start.lng = routes.origin.geometry.coordinates[1];
 
-        self.placeService.getPlace(self.to)
-          .then(function(place){
-            console.log(place.features);
+              self.finish.lat = routes.destination.geometry.coordinates[0];
+              self.finish.lng = routes.destination.geometry.coordinates[1];
 
-            // GET DIRECTIONS
-            self.routeService.getRoute()
-              .then(function(routes){
-                console.log(routes);
+              var route = routes.routes.length > 1 ? routes.routes[0] : routes.routes;
+              var ins = [];
 
-                var route = routes.routes.length > 1 ? routes.routes[0] : routes.routes;
-                var ins = [];
+              for(let i = 0; i < route.steps.length; i++) {
+                ins.push(route.steps[i]);
+              }
 
-                for(let i = 0; i < route.steps.length; i++) {
-                  ins.push(route.steps[i]);
-                }
+              self.instructions = ins;
+              self.saveData.set(ins);
 
-                self.instructions = ins;
-              })
+            })
 
-          });
-      });
+        });
+    } else {
+      this.placeService.getPlace(this.from)
+        .then(function (place) {
+          self.placeService.getPlace(self.to)
+            .then(function (place) {
+
+              // GET DIRECTIONS
+              self.routeService.getRoute()
+                .then(function (routes) {
+
+                  //set start/finish
+                  self.start.lat = routes.origin.geometry.coordinates[0];
+                  self.start.lng = routes.origin.geometry.coordinates[1];
+
+                  self.finish.lat = routes.destination.geometry.coordinates[0];
+                  self.finish.lng = routes.destination.geometry.coordinates[1];
+
+                  var route = routes.routes.length > 1 ? routes.routes[0] : routes.routes;
+                  var ins = [];
+
+                  for (let i = 0; i < route.steps.length; i++) {
+                    ins.push(route.steps[i]);
+                  }
+
+                  self.instructions = ins;
+                  self.saveData.set(ins);
+
+                })
+
+            });
+        });
+    }
   }
+  getLocation() {
+    if (navigator.geolocation) {
+      var self = this;
+      var coords = navigator.geolocation.getCurrentPosition(function(location){
+        self.start.lat = location.coords.latitude;
+        self.start.lng = location.coords.longitude;
+        self.start.isCoordinate = true;
+
+        self.from = location.coords.latitude + ";" + location.coords.longitude;
+      });
+
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  }
+
 
   exportToCSV() {
     console.log(this.instructions);

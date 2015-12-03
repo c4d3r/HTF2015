@@ -8,7 +8,10 @@ export function MapDirective() {
     restrict: 'E',
     templateUrl: 'app/components/map/map.html',
     scope: {
-      creationDate: '='
+      startLat: '=',
+      startLng: '=',
+      finishLat: '=',
+      finishLng: '='
     },
     controller: MapController,
     controllerAs: 'vm',
@@ -19,19 +22,70 @@ export function MapDirective() {
 }
 
 class MapController {
-  constructor (moment) {
+  constructor($attrs) {
     'ngInject';
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoiaHRmIiwiYSI6ImNpaHB5aWUzbjA0YXV0Nm00OWc1dmVhaW8ifQ.9FwnpyOmSoaN1rjfZyG0Yw';
-    var map = new mapboxgl.Map({
-      container: 'map', // container id
-      style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
-      center: [-74.50, 40], // starting position
-      zoom: 9 // starting zoom
+
+    L.mapbox.accessToken = 'pk.eyJ1IjoiaHRmIiwiYSI6ImNpaHB5aWUzbjA0YXV0Nm00OWc1dmVhaW8ifQ.9FwnpyOmSoaN1rjfZyG0Yw';
+
+    // example origin and destination
+    if(!this.startLat || !this.finishLat) {
+      var start = {lat: 4.445618152618408, lng: 51.15686798095703};
+      var finish = {lat: 4.757542133331299, lng: 51.23752975463867};
+    } else {
+      var start = {lat: this.startLat, lng: this.startLng};
+      var finish = {lat: this.finishLat, lng: this.finishLng};
+    }
+
+    var map = L.mapbox.map('map', 'mapbox.streets', {
+      zoomControl: false
+    }).setView([start.lng, start.lat], 15);
+
+    map.attributionControl.setPosition('bottomleft');
+    var directions = L.mapbox.directions({
+      profile: 'mapbox.walking'
     });
 
-    // "this.creation" is available by directive option "bindToController: true"
-    this.relativeDate = moment(this.creationDate).fromNow();
+    var directionsLayer = L.mapbox.directions.layer(directions).addTo(map);
+    var directionsRoutesControl = L.mapbox.directions.routesControl('routes', directions)
+      .addTo(map);
+
+
+    var destination = {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [start.lat, start.lng]
+      },
+      "properties": {
+        "title": '<%= link_to @direction.business.name, business_url(@direction.business) %>',
+        "description": '<%= @direction.business.full_street_address %>',
+        "marker-color": "#3ca0d3",
+        "marker-size": "large",
+        "marker-symbol": "star"
+      }
+    };
+
+    var origin = {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [finish.lat, finish.lng]
+      },
+      "properties": {
+        "title": 'You',
+        "description": '',
+        "marker-color": "#ff0000",
+        "marker-size": "large",
+        "marker-symbol": "heart"
+      }
+    };
+
+    directions
+      .setOrigin(origin)
+      .setDestination(destination)
+      .query();
+
   }
 }
 
