@@ -48,6 +48,7 @@ export class RouteController {
                 }
 
                 self.instructions = ins;
+                this.routeService.instructions.current = ins;
               })
 
           });
@@ -55,7 +56,6 @@ export class RouteController {
   }
 
   exportToCSV() {
-    console.log(this.instructions);
     return this.instructions;
   }
 }
