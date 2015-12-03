@@ -79,6 +79,7 @@ section.jumbotron {
 .techs {
   display: flex;
   flex-flow: row wrap;
+  text-align: center;
 
   md-card {
     width: 30%;
@@ -89,6 +90,18 @@ section.jumbotron {
     }
   }
 }
+
+#codeButton {
+    margin:auto;
+    width: 100px;
+    height: 100px;
+}
+#codeName {
+ word-break: break-all;
+ text-align: justify;
+
+}
+
 
 /**
  *  Do not remove the comment below. It's the markers used by gulp-inject to inject
